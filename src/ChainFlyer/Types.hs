@@ -1,3 +1,11 @@
+{-|
+Module      : ChainFlyer
+Description : Bindings to chainFlyer's API.
+Copyright   : (c) Tatsuya Hirose, 2015
+License     : BSD3
+Maintainer  : tatsuya.hirose.0804@gmail.com
+-}
+
 {-# LANGUAGE OverloadedStrings #-}
 
 module ChainFlyer.Types (
@@ -13,6 +21,7 @@ import Data.Aeson
 import Data.Time.Clock
 import Data.Time.Format
 
+-- | Block.
 data Block = Block
     { blockHash       :: String
     , blockHeight     :: Int
@@ -44,6 +53,8 @@ instance FromJSON Block where
                        <*> v .: "tx_hashes"
     parseJSON _          = mzero
 
+
+-- | Input of a transaction.
 data TransactionInput = TransactionInput
     { txiPrevHash  :: String
     , txiPrevIndex :: Integer
@@ -63,6 +74,7 @@ instance FromJSON TransactionInput where
                        <*> v .: "sequence"
     parseJSON _          = mzero
 
+-- | Output of a transaction.
 data TransactionOutput = TransactionOutput
     { txoValue   :: Integer
     , txoScript  :: String
@@ -76,6 +88,7 @@ instance FromJSON TransactionOutput where
                        <*> v .: "address"
     parseJSON _          = mzero
 
+-- | Transaction.
 data Transaction = Transaction
     { txHash         :: String
     , txBlockHeight  :: Int
@@ -103,6 +116,7 @@ instance FromJSON Transaction where
                        <*> v .: "outputs"
     parseJSON _          = mzero
 
+-- | Address.
 data Address = Address
     { address            :: String
     , unconfirmedBalance :: Integer

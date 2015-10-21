@@ -1,29 +1,43 @@
+{-|
+Module      : ChainFlyer
+Description : Bindings to chainFlyer's API.
+Copyright   : (c) Tatsuya Hirose, 2015
+License     : BSD3
+Maintainer  : tatsuya.hirose.0804@gmail.com
+-}
+
 module ChainFlyer (
     getBlock
-  , getBlockLatest
   , getBlockHeight
+  , getLatestBlock
   , getTransaction
   , getAddress
 ) where
 
 import ChainFlyer.Types
 import Data.Aeson
+import Data.Maybe (fromJust)
 import Network.HTTP.Conduit
 
 baseUrl :: String
 baseUrl = "https://chainflyer.bitflyer.jp/v1"
 
-getBlock :: String -> IO (Maybe Block)
-getBlock hash = decode <$> simpleHttp (baseUrl ++ "/block/" ++ hash)
+-- | Get block info of given hash.
+getBlock :: String -> IO Block
+getBlock hash = fromJust . decode <$> simpleHttp (baseUrl ++ "/block/" ++ hash)
 
-getBlockLatest :: IO Block
-getBlockLatest = (\(Just x) -> x) . decode <$> simpleHttp (baseUrl ++ "/block/latest")
+-- | Get block info of given height.
+getBlockHeight :: Int -> IO Block
+getBlockHeight height = fromJust . decode <$> simpleHttp (baseUrl ++ "/block/height/" ++ show height)
 
-getBlockHeight :: Int -> IO (Maybe Block)
-getBlockHeight height = decode <$> simpleHttp (baseUrl ++ "/block/height/" ++ show height)
+-- | Get latest block info.
+getLatestBlock :: IO Block
+getLatestBlock = fromJust . decode <$> simpleHttp (baseUrl ++ "/block/latest")
 
-getTransaction :: String -> IO (Maybe Transaction)
-getTransaction hash = decode <$> simpleHttp (baseUrl ++ "/tx/" ++ hash)
+-- | Get transaction info of given hash.
+getTransaction :: String -> IO Transaction
+getTransaction hash = fromJust . decode <$> simpleHttp (baseUrl ++ "/tx/" ++ hash)
 
-getAddress :: String -> IO (Maybe Address)
-getAddress address = decode <$> simpleHttp (baseUrl ++ "/address/" ++ address)
+-- | Get address info of given hash.
+getAddress :: String -> IO Address
+getAddress address = fromJust . decode <$> simpleHttp (baseUrl ++ "/address/" ++ address)
