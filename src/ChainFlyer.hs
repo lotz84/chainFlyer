@@ -22,8 +22,8 @@ getBlockLatest = (\(Just x) -> x) . decode <$> simpleHttp (baseUrl ++ "/block/la
 getBlockHeight :: Int -> IO (Maybe Block)
 getBlockHeight height = decode <$> simpleHttp (baseUrl ++ "/block/height/" ++ show height)
 
-getTransaction :: String -> IO (Either String Transaction)
-getTransaction hash = eitherDecode <$> simpleHttp (baseUrl ++ "/tx/" ++ hash)
+getTransaction :: String -> IO (Maybe Transaction)
+getTransaction hash = decode <$> simpleHttp (baseUrl ++ "/tx/" ++ hash)
 
 getAddress :: String -> IO (Maybe Address)
 getAddress address = decode <$> simpleHttp (baseUrl ++ "/address/" ++ address)

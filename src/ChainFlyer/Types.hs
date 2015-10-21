@@ -10,6 +10,8 @@ module ChainFlyer.Types (
 
 import Control.Monad (mzero)
 import Data.Aeson
+import Data.Time.Clock
+import Data.Time.Format
 
 data Block = Block
     { blockHash       :: String
@@ -18,7 +20,7 @@ data Block = Block
     , blockVersion    :: Int
     , blockPrevBlock  :: String
     , blockMerkleRoot :: String
-    , blockTimestamp  :: String -- TODO
+    , blockTimestamp  :: UTCTime
     , blockBits       :: Integer
     , blockNonce      :: Integer
     , blockTxnum      :: Int
@@ -34,7 +36,7 @@ instance FromJSON Block where
                        <*> v .: "version"
                        <*> v .: "prev_block"
                        <*> v .: "merkle_root"
-                       <*> v .: "timestamp"
+                       <*> (v .: "timestamp" >>= parseTimeM True defaultTimeLocale "%Y-%m-%dT%H:%M:%SZ")
                        <*> v .: "bits"
                        <*> v .: "nonce"
                        <*> v .: "txnum"
@@ -80,7 +82,7 @@ data Transaction = Transaction
     , txConfirmed    :: Int
     , txFees         :: Integer
     , txSize         :: Int
-    , txReceivedDate :: String -- TODO
+    , txReceivedDate :: UTCTime
     , txVersion      :: Int
     , txLockTime     :: Int
     , txInputs       :: [TransactionInput]
@@ -94,7 +96,7 @@ instance FromJSON Transaction where
                        <*> v .: "confirmed"
                        <*> v .: "fees"
                        <*> v .: "size"
-                       <*> v .: "received_date"
+                       <*> (v .: "received_date" >>= parseTimeM True defaultTimeLocale "%Y-%m-%dT%H:%M:%S" . takeWhile (/='.'))
                        <*> v .: "version"
                        <*> v .: "lock_time"
                        <*> v .: "inputs"
