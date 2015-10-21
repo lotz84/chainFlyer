@@ -1,7 +1,7 @@
 chainFlyer
 ==========
 
-Bindings to chainFlyer's API.
+Bindings to [chainFlyer's API](https://chainflyer.bitflyer.jp/API/docs).
 
 ```haskell
 main :: IO ()
@@ -13,3 +13,5 @@ main = do
         ++ show (unconfirmedBalance addr + confirmedBalance addr)
         ++ " satoshi."
 ```
+
+If you want to use this library with stack, [this document](https://github.com/commercialhaskell/stack/blob/master/doc/faq.md#i-need-to-use-a-package-or-version-of-a-package-that-is-not-available-on-hackage-what-should-i-do) is very helpful.
