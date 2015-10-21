@@ -3,6 +3,9 @@ chainFlyer
 
 Bindings to [chainFlyer's API](https://chainflyer.bitflyer.jp/API/docs).
 
+[Document](http://lotz84.github.io/chainFlyer/)
+
+
 ```haskell
 main :: IO ()
 main = do
