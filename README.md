@@ -7,7 +7,6 @@ Bindings to [chainFlyer's API](https://chainflyer.bitflyer.jp/API/docs).
 
 
 ```haskell
-main :: IO ()
 main = do
     block <- getLatestBlock
     tx    <- getTransaction $ head $ blockTxHashes block
@@ -17,4 +16,11 @@ main = do
         ++ " satoshi."
 ```
 
-If you want to use this library with stack, [this document](https://github.com/commercialhaskell/stack/blob/master/doc/faq.md#i-need-to-use-a-package-or-version-of-a-package-that-is-not-available-on-hackage-what-should-i-do) is very helpful.
+If you want to use this library with stack, add to stack.yaml the git repo location as below.
+
+```yaml
+packages:
+- location:
+    git: git@github.com:lotz84/chainFlyer.git
+    commit: 70a3121363887fa576a4219c50506f6637b43178
+```
