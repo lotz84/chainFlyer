@@ -13,7 +13,7 @@ main = do
         ++ " satoshi."
 ```
 
-If you want to use this library with stack, add to stack.yaml the git repo location as below.
+If you want to use this library with stack, add to `stack.yaml` this repo location as below.
 
 ```yaml
 packages:
