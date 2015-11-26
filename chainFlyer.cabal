@@ -1,5 +1,5 @@
 name:                chainFlyer
-version:             0.1.0.0
+version:             0.2.0.0
 synopsis:            Bindings to chainFlyer's API.
 description:         Please see README.md
 homepage:            https://github.com/lotz84/chainFlyer
@@ -14,12 +14,17 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     ChainFlyer
-                     , ChainFlyer.Types
+  exposed-modules:     Servant.ChainFlyer
+                     , Servant.ChainFlyer.Client
+                     , Servant.ChainFlyer.Types.Block
+                     , Servant.ChainFlyer.Types.Transaction
+                     , Servant.ChainFlyer.Types.Address
   build-depends:       base >= 4.7 && < 5
-                     , time >=1.5 && <1.6
-                     , aeson >=0.8 && <0.11
-                     , http-conduit >=2.1 && <2.2
+                     , time
+                     , aeson
+                     , either
+                     , servant
+                     , servant-client
   default-language:    Haskell2010
 
 executable chainFlyer-exe
@@ -27,6 +32,8 @@ executable chainFlyer-exe
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , transformers
+                     , either
                      , chainFlyer
   default-language:    Haskell2010
 
