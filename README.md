@@ -19,5 +19,5 @@ If you want to use this library with stack, add to `stack.yaml` this repo locati
 packages:
 - location:
     git: git@github.com:lotz84/chainFlyer.git
-    commit: 70a3121363887fa576a4219c50506f6637b43178
+    commit: 23ee5857504df700398c966582a2a9559841995a
 ```
